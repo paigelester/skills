@@ -42,6 +42,7 @@ Find the question that matches the work, then use the skill it points to.
 ```
 Meta
   Starting a session or a new task? ───────────────→ using-skills
+  New idea, or want to be grilled on one? ─────────→ idea-interview
 ```
 
 Each family's `README.md` has more detail on its skills.
