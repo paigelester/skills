@@ -52,4 +52,4 @@ Common chains of skills. Start at the first step that hasn't been done yet.
 
 None yet.
 
-Only list families and skills that exist in the repo. When adding a skill, add its question to the skill index (and to the workflows table if it joins a chain) in the same change.
+Only list families and skills that exist in the repo. When adding a skill, add its question to the skill index (and to the workflows table if it joins a chain), and its path to its family's plugin in `.claude-plugin/marketplace.json`, in the same change.
