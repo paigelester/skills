@@ -12,7 +12,7 @@
       "description": "How skills are discovered and applied. Install this with any other family.",
       "source": "./",
       "strict": false,
-      "skills": ["./meta/using-skills"]
+      "skills": ["./meta/using-skills", "./meta/clear-replies"]
     }
   ]
 }
