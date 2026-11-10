@@ -42,6 +42,7 @@ Find the question that matches the work, then use the skill it points to.
 ```
 Meta
   Starting a session or a new task? ───────────────→ using-skills
+  Writing any reply or text for the user? ─────────→ clear-replies
 ```
 
 Each family's `README.md` has more detail on its skills.
