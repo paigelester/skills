@@ -1,6 +1,6 @@
 ---
 name: create-tickets
-description: Turn work someone wants done into factory tickets, sized to fit: one ticket for simple work, a parent with child tickets for big work. Use after a grill session, when asked to file, write or create tickets or issues, or when another workflow (bug triage, exploratory testing, upgrades, tech debt, crash reports) needs to file one.
+description: "Turn work someone wants done into factory tickets, sized to fit: one ticket for simple work, a parent with child tickets for big work. Use after a grill session, when asked to file, write or create tickets or issues, or when another workflow (bug triage, exploratory testing, upgrades, tech debt, crash reports) needs to file one."
 ---
 
 # Create tickets

@@ -20,10 +20,39 @@ function findSkills(dir) {
   return found;
 }
 
-function frontmatterName(skillDir) {
-  const text = readFileSync(join(root, skillDir, "SKILL.md"), "utf8");
-  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  return match?.[1].match(/^name:\s*["']?([^"'\r\n]+?)["']?\s*$/m)?.[1];
+// Frontmatter is YAML, but every skill uses only flat `key: value` lines, so
+// this checks that subset strictly instead of pulling in a YAML parser. A plain
+// (unquoted) value that YAML would reject or misread, such as one containing
+// ": " or " #", is reported with the fix: wrap the value in double quotes.
+const PLAIN_START = /^[-?:,\[\]{}#&*!|>'"%@`]/;
+
+function parseFrontmatter(skillDir) {
+  const file = `${skillDir}/SKILL.md`;
+  const text = readFileSync(join(root, file), "utf8");
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  if (!match) return { fields: {}, problems: [`${file} has no frontmatter between --- lines`] };
+  const fields = {};
+  const problems = [];
+  match[1].split(/\r?\n/).forEach((line, i) => {
+    const where = `${file} frontmatter line ${i + 2}`;
+    if (!line.trim() || line.trimStart().startsWith("#")) return;
+    const kv = line.match(/^([A-Za-z0-9_-]+):(?:\s+(.*?))?\s*$/);
+    if (!kv) return problems.push(`${where} is not a \`key: value\` line: ${line}`);
+    const [, key, raw = ""] = kv;
+    if (key in fields) problems.push(`${where} repeats the key "${key}"`);
+    let value = raw;
+    if (raw.startsWith('"')) {
+      if (!/^"(?:[^"\\]|\\.)*"$/.test(raw)) problems.push(`${where}: "${key}" opens a double quote it doesn't close cleanly`);
+      else value = JSON.parse(raw);
+    } else if (raw.startsWith("'")) {
+      if (!/^'(?:[^']|'')*'$/.test(raw)) problems.push(`${where}: "${key}" opens a single quote it doesn't close cleanly`);
+      else value = raw.slice(1, -1).replace(/''/g, "'");
+    } else if (PLAIN_START.test(raw) || raw.includes(": ") || raw.includes(" #") || raw.endsWith(":")) {
+      problems.push(`${where}: "${key}" isn't valid unquoted YAML (it has ": ", " #" or a special first character); wrap the value in double quotes`);
+    }
+    fields[key] = value;
+  });
+  return { fields, problems };
 }
 
 const listed = new Map();
@@ -44,7 +73,10 @@ for (const skillDir of findSkills(root)) {
   const plugin = listed.get(skillDir);
   if (!plugin) errors.push(`${skillDir} is missing from marketplace.json (add it to the "${family}" plugin)`);
   else if (plugin !== family) errors.push(`${skillDir} is listed under "${plugin}", expected "${family}"`);
-  const name = frontmatterName(skillDir);
+  const { fields, problems } = parseFrontmatter(skillDir);
+  errors.push(...problems);
+  const name = fields.name;
+  if (!fields.description) errors.push(`${skillDir}/SKILL.md has no description in its frontmatter`);
   if (!name) errors.push(`${skillDir}/SKILL.md has no name in its frontmatter`);
   else if (name !== folder) errors.push(`${skillDir}/SKILL.md has name "${name}", expected "${folder}"`);
   if (names.has(name)) errors.push(`skill name "${name}" is used by both ${names.get(name)} and ${skillDir}`);
