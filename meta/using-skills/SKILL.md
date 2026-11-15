@@ -50,6 +50,9 @@ Factory
   Reading, labelling or handing off a ticket? ─────→ factory-labels
   Implementing a ticket from ready to PR? ─────────→ implement-ticket
   Reviewing an implementation, any author? ────────→ review-implementation
+  Fixing failed checks or comments on a PR? ───────→ fix-pr
+  Merging a PR, or closing out a merged one? ──────→ merge-pr
+  Telling the human you need them or are done? ────→ notify
 ```
 
 Each family's `README.md` has more detail on its skills.
@@ -63,6 +66,7 @@ Create tickets:      a grill session (when the work is fuzzy) → create-tickets
 Route a ticket:      factory-labels → route-ticket → (human approves to ready)
 Implement a ticket:  factory-labels → implement-ticket → review-implementation (subagent) → implement-ticket (PR + hand-off)
 Human-owned ticket:  factory-labels → developer builds + runs the check → review-implementation (subagent) → developer opens PR
+PR workflow:         CI + review-implementation on the PR → fix-pr (until green, threads answered) → merge-pr (pre-filter, risk, merge or notify human) → close-out
 ```
 
 Only list families and skills that exist in the repo. When adding a skill, add its question to the skill index (and to the workflows table if it joins a chain), and its path to its family's plugin in `.claude-plugin/marketplace.json`, in the same change.

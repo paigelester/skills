@@ -17,13 +17,13 @@ Labels and the commands that move them are in the `factory-labels` skill. Read i
 4. **Verify.** Run the repo's own check command (the one its `AGENTS.md` names, e.g. `npm run verify`). Fix and re-run until it exits 0. Done when the command exits 0 on your last commit. Report its output; never judge a pass by reading code.
 5. **Review.** Run the `review-implementation` skill in a separate subagent, passing the ticket number and your branch's diff against the default branch. Fix every finding marked `must`, then go back to step 4. Done when a review returns no `must` findings. After 3 review rounds with `must` findings left, go to **Stop and ask**.
 6. **Open the PR.** Push the branch and open a ready-for-review PR. Title in the repo's commit style. Body: `Closes #<n>`, what changed, how each acceptance criterion is met, the check command's result, and any `should` findings you left. Use the repo's PR template if it has one. Done when the PR exists and links the ticket.
-7. **Hand off.** Move the ticket from `factory:in-progress` to `factory:in-review` and comment the PR link. Done when the ticket shows `factory:in-review`.
+7. **Hand off.** Move the ticket from `factory:in-progress` to `factory:in-review`, then use the `notify` skill with event `pr-made`. Done when the ticket shows `factory:in-review` and the ticket has the PR link. From here the PR workflow takes over: `fix-pr` when checks fail or comments arrive, `merge-pr` once it's green.
 
 ## Stop and ask
 
-Stop as soon as the next step needs something only a human has. Leave the ticket at `factory:in-progress`, push what you have, and:
+Stop as soon as the next step needs something only a human has. Leave the ticket at `factory:in-progress`, push what you have, and use the `notify` skill:
 
-- **A decision** (unclear requirement, a trade-off the ticket doesn't settle, a change outside the ticket's scope): add `factory:agent-awaiting-human` and comment one question with your recommended answer.
-- **Access** (a secret, a service, a permission, a command you're not allowed to run): add `factory:agent-blocked` and comment exactly what is missing.
+- **A decision** (unclear requirement, a trade-off the ticket doesn't settle, a change outside the ticket's scope): event `decision`, one question with your recommended answer.
+- **Access** (a secret, a service, a permission, a command you're not allowed to run): event `blocked`, naming exactly what is missing.
 
 Then end the session with a one-line summary of where the work stands. Unattended, nobody answers in the terminal, so the comment is where the human sees it.

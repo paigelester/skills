@@ -18,7 +18,7 @@ You report; you don't fix. Whoever asked for the review (the developer, or the a
 3. **Check each criterion.** For every criterion, find the code and the test that meet it. A criterion with no code is a `must`. A testable criterion with no test is a `must`.
 4. **Check the code.** Look for bugs, unhandled errors, broken edge cases, security problems, and breaks of the repo's own rules. Each one that would break behaviour or a rule is a `must`; anything else worth fixing is a `should`.
 5. **Check the docs.** If behaviour, UI, setup or commands changed, the README, docs or glossary that describe them must change too. A stale doc is a `must`.
-6. **Report.** Return the findings in the format below to whoever asked. Done when every criterion appears in the criteria table and every finding names a file and line.
+6. **Report.** Return the findings in the format below to whoever asked. When the change is an open PR, also post the report as a PR review (`gh pr review <pr> --comment --body-file report.md`), so the author's `fix-pr` and the `merge-pr` gate can read it. Done when every criterion appears in the criteria table, every finding names a file and line, and, for a PR, the review is posted.
 
 ## Output
 
