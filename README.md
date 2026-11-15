@@ -58,7 +58,7 @@ The same manifest makes this repo a Claude Code plugin marketplace, with one plu
 
 ## Adding a skill
 
-1. Create `<family>/<skill-name>/SKILL.md`. The frontmatter `name` must match the folder name and be unique across all families.
+1. Create `<family>/<skill-name>/SKILL.md`. The frontmatter `name` must match the folder name and be unique across all families. Wrap the `description` in double quotes if it contains `: ` or ` #`, or YAML can't read it.
 2. Add the skill's path to its family's plugin in `.claude-plugin/marketplace.json`, creating the family's plugin entry if it's new.
 3. Add the skill's question to the index in `meta/using-skills/SKILL.md`.
-4. Run `node scripts/check-manifest.mjs`. CI runs the same check on every pull request.
+4. Run `node scripts/check-manifest.mjs`. It also checks every skill's frontmatter. CI runs the same check on every pull request.
