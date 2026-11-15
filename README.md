@@ -38,6 +38,11 @@ Keep installed skills current with `npx skills check` and `npx skills update`.
 
 Always install `using-skills` (the `meta` family). It tells the agent how to find and apply the others.
 
+### Families
+
+- **meta**: how skills are found and applied (`using-skills`, `clear-replies`).
+- **factory**: the agent software factory (`factory-labels`, `implement-ticket`, `local-review`). Set up a repo's labels with `bash .agents/skills/factory-labels/scripts/create-labels.sh` after installing.
+
 ### Supported agents
 
 Claude Code (`.claude/skills/`), GitHub Copilot, Cursor and Codex (`.agents/skills/`) all work, along with the [other agents the CLI supports](https://github.com/vercel-labs/skills/blob/main/docs/agents.md), including Gemini CLI, OpenCode, Cline, Windsurf, Roo Code, Kiro, Amp and Goose.
