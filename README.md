@@ -41,7 +41,7 @@ Always install `using-skills` (the `meta` family). It tells the agent how to fin
 ### Families
 
 - **meta**: how skills are found and applied (`using-skills`, `clear-replies`).
-- **factory**: the agent software factory (`factory-labels`, `implement-ticket`, `local-review`). Set up a repo's labels with `bash .agents/skills/factory-labels/scripts/create-labels.sh` after installing.
+- **factory**: the agent software factory (`create-tickets`, `route-ticket`, `factory-labels`, `implement-ticket`, `local-review`). Set up a repo's labels with `bash .agents/skills/factory-labels/scripts/create-labels.sh` after installing.
 
 ### Supported agents
 

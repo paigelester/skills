@@ -45,6 +45,8 @@ Meta
   Writing any reply or text for the user? ─────────→ clear-replies
 
 Factory
+  Turning work into tickets? ──────────────────────→ create-tickets
+  Routing a selected ticket? ──────────────────────→ route-ticket
   Reading, labelling or handing off a ticket? ─────→ factory-labels
   Implementing a ticket from ready to PR? ─────────→ implement-ticket
   Reviewing a branch before it becomes a PR? ──────→ local-review
@@ -57,6 +59,8 @@ Each family's `README.md` has more detail on its skills.
 Common chains of skills. Start at the first step that hasn't been done yet.
 
 ```
+Create tickets:      a grill session (when the work is fuzzy) → create-tickets
+Route a ticket:      factory-labels → route-ticket → (human approves to ready)
 Implement a ticket:  factory-labels → implement-ticket → local-review (subagent) → implement-ticket (PR + hand-off)
 ```
 
