@@ -43,6 +43,11 @@ Find the question that matches the work, then use the skill it points to.
 Meta
   Starting a session or a new task? ───────────────→ using-skills
   Writing any reply or text for the user? ─────────→ clear-replies
+
+Factory
+  Reading, labelling or handing off a ticket? ─────→ factory-labels
+  Implementing a ticket from ready to PR? ─────────→ implement-ticket
+  Reviewing a branch before it becomes a PR? ──────→ local-review
 ```
 
 Each family's `README.md` has more detail on its skills.
@@ -51,6 +56,8 @@ Each family's `README.md` has more detail on its skills.
 
 Common chains of skills. Start at the first step that hasn't been done yet.
 
-None yet.
+```
+Implement a ticket:  factory-labels → implement-ticket → local-review (subagent) → implement-ticket (PR + hand-off)
+```
 
 Only list families and skills that exist in the repo. When adding a skill, add its question to the skill index (and to the workflows table if it joins a chain), and its path to its family's plugin in `.claude-plugin/marketplace.json`, in the same change.

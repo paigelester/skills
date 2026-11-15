@@ -12,7 +12,21 @@
       "description": "How skills are discovered and applied. Install this with any other family.",
       "source": "./",
       "strict": false,
-      "skills": ["./meta/using-skills", "./meta/clear-replies"]
+      "skills": [
+        "./meta/using-skills",
+        "./meta/clear-replies"
+      ]
+    },
+    {
+      "name": "factory",
+      "description": "The agent software factory: ticket labels, implementing a ticket from ready to PR, and pre-PR review.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./factory/factory-labels",
+        "./factory/implement-ticket",
+        "./factory/local-review"
+      ]
     }
   ]
 }
