@@ -49,7 +49,7 @@ Factory
   Routing a selected ticket? ──────────────────────→ route-ticket
   Reading, labelling or handing off a ticket? ─────→ factory-labels
   Implementing a ticket from ready to PR? ─────────→ implement-ticket
-  Reviewing a branch before it becomes a PR? ──────→ local-review
+  Reviewing an implementation, any author? ────────→ review-implementation
 ```
 
 Each family's `README.md` has more detail on its skills.
@@ -61,7 +61,8 @@ Common chains of skills. Start at the first step that hasn't been done yet.
 ```
 Create tickets:      a grill session (when the work is fuzzy) → create-tickets
 Route a ticket:      factory-labels → route-ticket → (human approves to ready)
-Implement a ticket:  factory-labels → implement-ticket → local-review (subagent) → implement-ticket (PR + hand-off)
+Implement a ticket:  factory-labels → implement-ticket → review-implementation (subagent) → implement-ticket (PR + hand-off)
+Human-owned ticket:  factory-labels → developer builds + runs the check → review-implementation (subagent) → developer opens PR
 ```
 
 Only list families and skills that exist in the repo. When adding a skill, add its question to the skill index (and to the workflows table if it joins a chain), and its path to its family's plugin in `.claude-plugin/marketplace.json`, in the same change.
