@@ -19,12 +19,13 @@
     },
     {
       "name": "factory",
-      "description": "The agent software factory: creating and routing tickets, ticket labels, implementing a ticket from ready to PR, reviewing an implementation, fixing and merging PRs, and notifying the human.",
+      "description": "The agent software factory: setting up a repo, creating and routing tickets, ticket labels, implementing a ticket from ready to PR, reviewing an implementation, fixing and merging PRs, and notifying the human.",
       "source": "./",
       "strict": false,
       "skills": [
         "./factory/create-tickets",
         "./factory/route-ticket",
+        "./factory/setup-factory",
         "./factory/factory-labels",
         "./factory/implement-ticket",
         "./factory/review-implementation",

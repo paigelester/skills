@@ -1,6 +1,6 @@
 ---
 name: factory-labels
-description: The `factory:*` ticket labels of the agent software factory and how to move a ticket between them. Use whenever you read, label, comment on or hand off a factory ticket, or set up the labels in a repo.
+description: The `factory:*` ticket labels of the agent software factory and how to move a ticket between them. Use whenever you read, label, comment on or hand off a factory ticket.
 ---
 
 # Factory labels
@@ -54,4 +54,4 @@ gh issue comment <n> --body "..."                                    # say why
 
 ## Setting up a repo
 
-`bash scripts/create-labels.sh [owner/repo]` (from this skill's folder) creates or updates every label above. Exit 0 = all labels exist.
+If a label is missing, the repo isn't set up. Use the `setup-factory` skill.

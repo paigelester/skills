@@ -45,6 +45,7 @@ Meta
   Writing any reply or text for the user? ─────────→ clear-replies
 
 Factory
+  Setting up a repo for the factory? ──────────────→ setup-factory
   Turning work into tickets? ──────────────────────→ create-tickets
   Routing a selected ticket? ──────────────────────→ route-ticket
   Reading, labelling or handing off a ticket? ─────→ factory-labels

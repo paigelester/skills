@@ -41,7 +41,7 @@ Always install `using-skills` (the `meta` family). It tells the agent how to fin
 ### Families
 
 - **meta**: how skills are found and applied (`using-skills`, `clear-replies`).
-- **factory**: the agent software factory (`create-tickets`, `route-ticket`, `factory-labels`, `implement-ticket`, `review-implementation`, `fix-pr`, `merge-pr`, `notify`). Set up a repo's labels with `bash .agents/skills/factory-labels/scripts/create-labels.sh` after installing. To change which PRs need a human review, copy `factory/merge-pr/review-categories.md` to `.factory/review-categories.md` in your repo and edit it.
+- **factory**: the agent software factory (`setup-factory`, `create-tickets`, `route-ticket`, `factory-labels`, `implement-ticket`, `review-implementation`, `fix-pr`, `merge-pr`, `notify`). After installing, ask your agent to set up the repo (the `setup-factory` skill), or run `bash .agents/skills/setup-factory/scripts/setup.sh`. To change which PRs need a human review, copy `factory/merge-pr/review-categories.md` to `.factory/review-categories.md` in your repo and edit it.
 
 ### Supported agents
 
