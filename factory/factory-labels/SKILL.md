@@ -19,8 +19,8 @@ A factory ticket's state is its labels. Exactly one **state** label is on an ope
 | `factory:ready` | Approved to build | Human |
 | `factory:in-progress` | Being built | The builder (or the patrol that claims it) |
 | `factory:in-review` | PR open and under review | The builder, once the PR exists |
-| `factory:merged` | On `main` | Merger |
-| `factory:closed` | Done | Merger |
+| `factory:merged` | On `main` | Merger (`merge-pr`) |
+| `factory:closed` | Done | Merger (`merge-pr`) |
 | `factory:reopened` | Regression, back to refining | Anyone |
 
 ## Owners

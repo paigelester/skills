@@ -45,4 +45,4 @@ The builder reads this comment as part of the ticket, so write the approach for 
 
 ## Stop and ask
 
-When the ticket isn't buildable (step 2), leave it at `factory:routing`, add `factory:agent-awaiting-human`, and comment one question: whether to refine it more (a grill session, then `create-tickets` to rewrite it) or what the missing criterion should be, with your recommended answer. Then end with a one-line summary of where the ticket stands.
+When the ticket isn't buildable (step 2), leave it at `factory:routing` and use the `notify` skill with event `decision`, asking one question: whether to refine it more (a grill session, then `create-tickets` to rewrite it) or what the missing criterion should be, with your recommended answer. Then end with a one-line summary of where the ticket stands.
