@@ -19,7 +19,7 @@
     },
     {
       "name": "factory",
-      "description": "The agent software factory: creating and routing tickets, ticket labels, implementing a ticket from ready to PR, and pre-PR review.",
+      "description": "The agent software factory: creating and routing tickets, ticket labels, implementing a ticket from ready to PR, and reviewing an implementation.",
       "source": "./",
       "strict": false,
       "skills": [
@@ -27,7 +27,7 @@
         "./factory/route-ticket",
         "./factory/factory-labels",
         "./factory/implement-ticket",
-        "./factory/local-review"
+        "./factory/review-implementation"
       ]
     }
   ]
