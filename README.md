@@ -65,6 +65,7 @@ A failed check or a `must` review finding goes back to build, up to the workflow
    |---|---|
    | `factory` | The factory version the repo targets. Its major.minor must match the installed one, so upgrading a repo is a deliberate step. |
    | `stacks` | Which `knowledge/stacks/` files load for build and review. |
+   | `commands.setup` | Optional. Commands that get a fresh checkout ready for the checks, such as `npm install`. Run once when a run claims its ticket, so a run in a new worktree works. |
    | `commands.verify` | Every check a change must pass. Only the driver's run of them counts. |
    | `workflows` | The workflows the repo turns on. |
    | `reviews` | Which reviews a change gets, by the paths it touches. A file no rule covers gets the `code` review. |

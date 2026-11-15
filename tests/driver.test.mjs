@@ -176,6 +176,25 @@ test("an unattended run pauses when the usage window is nearly spent", async () 
   assert.match(state.wait.reason, /85% of the 5-hour usage window/);
 });
 
+test("a run in a worktree belongs to the main repo, uses the worktree's branch and runs the setup commands", async () => {
+  const world = makeWorld({
+    contract: { commands: { setup: ["node --version"], verify: ["node check.mjs"] } },
+    agent: { build: [{ write: { "feature.txt": "hello\n" }, output: DONE }], review: [{ output: CLEAN_REVIEW }] },
+  });
+  world.git("push", "origin", "main");
+  const holding = join(world.root, "site-holding");
+  world.git("worktree", "add", "-b", "12-in-a-holding", holding, "origin/main");
+  const state = await startRun({ cwd: holding, workflow: "implement", ticket: 12, say: quiet });
+
+  assert.equal(state.status, "done");
+  assert.equal(state.branch, "12-in-a-holding");
+  assert.equal(state.repoName, "site", "the run is filed under the repo, not the worktree's folder");
+  assert.equal(world.gh().prs[0].head, "12-in-a-holding");
+  const setup = world.events(state.id).find((e) => e.event === "setup");
+  assert.equal(setup.command, "node --version");
+  assert.equal(setup.exit, 0);
+});
+
 test("reviews are picked from the changed files by the contract's rules", () => {
   const contract = { reviews: [{ paths: ["app/**"], run: ["code"] }] };
   assert.deepEqual(pickReviews(contract, ["app/page.tsx"]), ["code"]);

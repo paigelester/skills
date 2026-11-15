@@ -42,6 +42,7 @@ export function contractProblems(contract, brainVersion = BRAIN_VERSION) {
   if (commands !== undefined && (typeof commands !== "object" || Array.isArray(commands) || commands === null)) problems.push(`"commands" must be an object.`);
   else if (commands) {
     if (commands.verify !== undefined && (!isStrings(commands.verify) || commands.verify.length === 0)) problems.push(`"commands.verify" must be a list of commands, each one a check every change must pass.`);
+    if (commands.setup !== undefined && !isStrings(commands.setup)) problems.push(`"commands.setup" must be a list of commands that get a fresh checkout ready to run the checks.`);
     if (commands.run !== undefined && typeof commands.run !== "string") problems.push(`"commands.run" must be the one command that runs the app.`);
   }
 

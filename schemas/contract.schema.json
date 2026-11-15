@@ -11,6 +11,7 @@
     "commands": {
       "type": "object",
       "properties": {
+        "setup": { "type": "array", "items": { "type": "string" }, "description": "Commands that get a fresh checkout ready to run the checks, such as installing dependencies. Run once when a run claims its ticket." },
         "verify": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "The checks every change must pass, each a shell command that exits 0 on a pass." },
         "run": { "type": "string", "description": "The one command that runs the app, for reviews that need to use it." }
       }

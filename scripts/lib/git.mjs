@@ -1,7 +1,7 @@
 // Git, as the driver uses it. All paths are the repo's top level.
 import { rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { must, run } from "./exec.mjs";
 
 export const git = (repo, ...args) => must("git", args, { cwd: repo });
@@ -11,6 +11,12 @@ export function topLevel(cwd) {
   const result = run("git", ["rev-parse", "--show-toplevel"], { cwd });
   if (result.code !== 0) throw new Error(`${cwd} is not inside a git repository.`);
   return result.stdout.trim();
+}
+
+/** The repo's main checkout, even when `repo` is one of its worktrees. */
+export function mainCheckout(repo) {
+  const common = git(repo, "rev-parse", "--git-common-dir");
+  return dirname(resolve(repo, common)).split("\\").join("/");
 }
 
 export const currentBranch = (repo) => git(repo, "rev-parse", "--abbrev-ref", "HEAD");

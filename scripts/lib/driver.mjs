@@ -22,7 +22,9 @@ export async function startRun({ cwd, workflow, ticket, owner, say = console.log
   if (problems.length) throw new Error(`This repo can't run the "${workflow}" workflow yet:\n${problems.map((p) => `- ${p}`).join("\n")}`);
 
   const open = allStates().filter((s) => OPEN_STATUSES.includes(s.status));
-  const same = open.find((s) => s.repo === repo && s.ticket === ticket);
+  // A holding (worktree) of the repo is still that repo: one run per ticket across all of them.
+  const mainRepo = g.mainCheckout(repo);
+  const same = open.find((s) => (s.mainRepo ?? s.repo) === mainRepo && s.ticket === ticket);
   if (same) throw new Error(`Ticket #${ticket} already has a run (${same.id}, ${same.status}). Use \`factory next\` to carry it on or \`factory stop\` to end it.`);
   const running = open.filter(isAlive).length;
   const max = limits(contract).maxRuns;
@@ -32,7 +34,8 @@ export async function startRun({ cwd, workflow, ticket, owner, say = console.log
     id: newRunId(repo, ticket),
     workflow,
     repo,
-    repoName: basename(repo),
+    mainRepo,
+    repoName: basename(mainRepo),
     ticket,
     owner: owner ?? null,
     status: "running",
@@ -46,7 +49,7 @@ export async function startRun({ cwd, workflow, ticket, owner, say = console.log
     startedAt: new Date().toISOString(),
   };
   saveState(state);
-  logEvent(state, "run-start", { repoPath: repo });
+  logEvent(state, "run-start", { repoPath: repo, mainRepo });
   return advance(state, { contract, say });
 }
 
@@ -261,6 +264,15 @@ const SCRIPTS = {
     state.branch = g.currentBranch(repo);
     state.defaultBranch = base;
     state.base = g.git(repo, "merge-base", "HEAD", g.defaultRef(repo, contract));
+
+    // A fresh worktree has no installed dependencies, so the checks would fail before they start.
+    for (const command of contract.commands?.setup ?? []) {
+      const r = await runShell(command, { cwd: repo, timeoutMs: 30 * 60 * 1000 });
+      logEvent(state, "setup", { step: step.id, command, exit: r.code, seconds: r.seconds });
+      if (r.code !== 0) return { stop: `The setup command "${command}" failed (exit ${r.code}):
+
+${r.output.slice(-2000).trim()}` };
+    }
 
     if (ready) tickets.relabel(repo, ticket.number, ["factory:ready"], ["factory:in-progress"]);
     try {
