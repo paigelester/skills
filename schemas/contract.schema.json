@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Factory repo contract",
+  "description": "What a repo says about itself so factory workflows can run in it. Lives at .factory/contract.json. `factory check` is the authority; this schema is for editor help.",
+  "type": "object",
+  "required": ["factory", "stacks", "workflows"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "factory": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "The factory version this repo targets. Its major.minor must match the installed factory." },
+    "stacks": { "type": "array", "items": { "type": "string" }, "description": "Stack names with a file in knowledge/stacks/. Their knowledge is loaded for build and review." },
+    "commands": {
+      "type": "object",
+      "properties": {
+        "verify": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "The checks every change must pass, each a shell command that exits 0 on a pass." },
+        "run": { "type": "string", "description": "The one command that runs the app, for reviews that need to use it." }
+      }
+    },
+    "workflows": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "The workflows this repo turns on. Each has needs the contract must meet." },
+    "reviews": {
+      "type": "array",
+      "description": "Which reviews a change gets, by the files it touches. A file no rule covers gets the code review.",
+      "items": {
+        "type": "object",
+        "required": ["paths", "run"],
+        "properties": {
+          "paths": { "type": "array", "items": { "type": "string" }, "description": "Path patterns: * stays in a folder, ** crosses folders." },
+          "run": { "type": "array", "items": { "type": "string" }, "description": "Review names." }
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minutesPerRun": { "type": "number", "exclusiveMinimum": 0, "description": "An unattended run stops and asks after this long. Default 60." },
+        "maxRuns": { "type": "number", "exclusiveMinimum": 0, "description": "How many runs may go at once, across every repo. Default 2." },
+        "pauseAtQuotaPercent": { "type": "number", "exclusiveMinimum": 0, "description": "Unattended runs pause once this much of the 5-hour usage window is spent. Default 80." }
+      }
+    },
+    "allow": { "type": "array", "items": { "type": "string" }, "description": "Extra shell commands an agent may run without asking, as Claude Code patterns (e.g. \"npm run storybook *\")." },
+    "mcp": { "type": "boolean", "description": "Whether agent steps load this machine's MCP servers. Default false: they cost tokens on every step. Turn on for a repo whose work needs one (for example a Unity editor server)." },
+    "defaultBranch": { "type": "string", "description": "The branch work starts from and PRs target. Default: what origin calls its default." }
+  }
+}

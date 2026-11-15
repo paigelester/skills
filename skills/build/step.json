@@ -1,0 +1,26 @@
+{
+  "edits": true,
+  "knowledge": ["fundamentals", "stacks"],
+  "tools": ["Read", "Glob", "Grep", "Edit", "Write"],
+  "bash": ["git status", "git status *", "git diff", "git diff *", "git log *", "git show *", "gh issue view *"],
+  "verifyCommands": true,
+  "output": {
+    "type": "object",
+    "properties": {
+      "status": { "type": "string", "enum": ["done", "needs-human"] },
+      "summary": { "type": "string" },
+      "commitMessage": { "type": "string" },
+      "criteria": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": { "criterion": { "type": "string" }, "metBy": { "type": "string" } },
+          "required": ["criterion", "metBy"]
+        }
+      },
+      "kind": { "type": "string", "enum": ["decision", "blocked"] },
+      "question": { "type": "string" }
+    },
+    "required": ["status", "summary"]
+  }
+}

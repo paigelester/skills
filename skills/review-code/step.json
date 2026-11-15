@@ -1,0 +1,38 @@
+{
+  "edits": false,
+  "knowledge": ["fundamentals", "stacks", "rubrics/code"],
+  "tools": ["Read", "Glob", "Grep"],
+  "bash": ["git status", "git status *", "git diff", "git diff *", "git log *", "git show *", "git ls-files *", "gh issue view *"],
+  "output": {
+    "type": "object",
+    "properties": {
+      "criteria": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "criterion": { "type": "string" },
+            "metBy": { "type": "string" },
+            "verdict": { "type": "string", "enum": ["met", "not met"] }
+          },
+          "required": ["criterion", "verdict"]
+        }
+      },
+      "findings": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "severity": { "type": "string", "enum": ["must", "should"] },
+            "file": { "type": "string" },
+            "line": { "type": "integer" },
+            "problem": { "type": "string" },
+            "fix": { "type": "string" }
+          },
+          "required": ["severity", "file", "problem", "fix"]
+        }
+      }
+    },
+    "required": ["criteria", "findings"]
+  }
+}

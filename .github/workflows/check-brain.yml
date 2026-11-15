@@ -1,0 +1,19 @@
+name: Check the brain
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          git config --global user.name "CI"
+          git config --global user.email "ci@example.test"
+      - run: npm run verify

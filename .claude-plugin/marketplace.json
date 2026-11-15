@@ -4,35 +4,13 @@
     "name": "paigelester"
   },
   "metadata": {
-    "description": "Reusable agent skills for software projects, grouped by family."
+    "description": "Paige's software engineer brain: workflows, step skills, scripts and knowledge."
   },
   "plugins": [
     {
-      "name": "meta",
-      "description": "How skills are discovered and applied. Install this with any other family.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./meta/using-skills",
-        "./meta/clear-replies"
-      ]
-    },
-    {
       "name": "factory",
-      "description": "The agent software factory: setting up a repo, creating and routing tickets, ticket labels, implementing a ticket from ready to PR, reviewing an implementation, fixing and merging PRs, and notifying the human.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./factory/create-tickets",
-        "./factory/route-ticket",
-        "./factory/setup-factory",
-        "./factory/factory-labels",
-        "./factory/implement-ticket",
-        "./factory/review-implementation",
-        "./factory/fix-pr",
-        "./factory/merge-pr",
-        "./factory/notify"
-      ]
+      "description": "The factory's skills, and the coding knowledge a repo's contract loads into every session.",
+      "source": "./"
     }
   ]
 }

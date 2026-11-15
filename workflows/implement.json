@@ -1,0 +1,14 @@
+{
+  "name": "implement",
+  "description": "Take a ready ticket to an open PR (agent-owned) or to a verified, reviewed branch (human-owned).",
+  "needs": ["commands.verify"],
+  "steps": [
+    { "id": "claim", "script": "claim" },
+    { "id": "build", "skill": "build", "then": "save-work", "human": "human-owned" },
+    { "id": "verify", "script": "verify", "onFail": "build", "maxLoops": 5 },
+    { "id": "review", "script": "reviews", "onFail": "build", "maxLoops": 3 },
+    { "id": "squash", "script": "squash", "only": "agent-owned", "onFail": "build", "maxLoops": 2 },
+    { "id": "pr", "script": "open-pr", "only": "agent-owned", "maxLoops": 2 },
+    { "id": "handoff", "script": "handoff" }
+  ]
+}
